@@ -103,33 +103,35 @@ email: test@example.com
 password: password
 ```
 
-**Products Page**
+**Variants Page**
 ```
-URL: /admins/products
+URL: /admin/variants
 ```
 <img src="https://img.gergonzalez.es/screen1.png" width="400" alt="Store Front">
 
 This page allows administrators to view all available variants and manage them individually.
 
-**Edit Product Page**
+**Edit Variants Page**
 ```
-URL: /admins/products/{id}/edit
+URL: /admin/variants/{id}/edit
 ```
 <img src="https://img.gergonzalez.es/screen1.png" width="400" alt="Store Front">
 
 This page provides an interface for editing individual product variants and managing their relationships with other variants.
 
 ## Challenges and Solutions
-1. **Time Constraints.**The limited time available posed a significant challenge, often making it difficult to arrive at the most optimal solutions.
+1. **Time Constraints.** The limited time available posed a significant challenge, often making it difficult to arrive at the most optimal solutions.
 
 2. **Scalability and Code Maintenance.** Balancing simplicity and readability with future scalability was critical. Overengineering could have easily complicated the codebase, so efforts were made in this area to keep the code simple and maintenable. Using for example Repository Pattern.
 
-3. ** Complex Variant Relationships.** Managing and validating the crazy relationships between different variants was chagelling, especially when ensuring all configurations were valid.
-
+3. **Complex Variant Relationships.** Managing and validating the crazy relationships between different variants was chagelling, especially when ensuring all configurations were valid.
 
 ## Future Improvements
 Due to the time limitations the following features weren't implemented:
+
 - More validation in client side and server side.
+- More coude decoupling, validation
+- Front State mangement, Pinia
 - Product listing page with multiple bicycles.
 - Shopping cart functionality.
 - Stock management.
@@ -138,9 +140,9 @@ Due to the time limitations the following features weren't implemented:
 ## Contact
 If you have any questions or feedback, feel free to reach out:
 
-- Email: ger@gergonzalez.com
-- GitHub: github.com/gergonzalez
-- LinkedIn: linkedin.com/in/gergonzalez
+- Email: [ger@gergonzalez.com](ger@gergonzalez.com)
+- GitHub: [github.com/gergonzalez](github.com/gergonzalez)
+- LinkedIn: [linkedin.com/in/gergonzalez](linkedin.com/in/gergonzalez)
 
 ## License
 Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
