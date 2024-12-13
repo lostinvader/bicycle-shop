@@ -12,21 +12,21 @@ let priceVariants = ref([]);
 let cartPrice = ref(0);
 
 let toast = ref({
-  show:false,
-  text:'Product Added to Cart',
-  color:'green'
+    show: false,
+    text: 'Product Added to Cart',
+    color: 'green',
 });
 
 const form = useForm({
-  id: props.product.id,
+    id: props.product.id,
     selected: [],
     price: 0,
-})
+});
 
 function calculate() {
     form.price = 0;
-    disabledVariants = [];
-    priceVariants = [];
+    disabledVariants.value = [];
+    priceVariants.value = [];
     let extraItems = 0;
 
     form.selected.forEach((id) => {
@@ -40,17 +40,17 @@ function calculate() {
             (x) => x.pivot.affected_price_amount_increase !== null,
         );
 
-        disabledVariants = [...disabledVariants, ...disabled];
-        priceVariants = [...priceVariants, ...priceIncreaseVariants];
+        disabledVariants.value = [...disabledVariants, ...disabled];
+        priceVariants.value = [...priceVariants, ...priceIncreaseVariants];
 
         form.price += Number(selectedVariant.default_price_amount);
     });
 
-    disabledVariants = disabledVariants.map((obj) => obj.id);
+    disabledVariants.value = disabledVariants.value.map((obj) => obj.id);
 
     form.selected.forEach((id) => {
         extraItems += Number(
-          priceVariants.find((x) => x.id == id)?.pivot
+            priceVariants.value.find((x) => x.id == id)?.pivot
                 .affected_price_amount_increase ?? 0,
         );
     });
@@ -59,16 +59,25 @@ function calculate() {
 }
 
 function submit() {
-      //TODO: Add more front validation checks, for example to check if all variants have been picked.
-      form.post('/carts', {
-      preserveScroll: true,
-      onSuccess: () => { 
-        toast = {show:true, text:'Product Added to Cart', color:'green'}
-        cartPrice = form.price;
-      },
-      onError: () => toast = {show:true, text:form.errors.selected, color:'red'},
-    })
-  }
+    //TODO: Add more front validation checks, for example to check if all variants have been picked.
+    form.post('/carts', {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.value = {
+                show: true,
+                text: 'Product Added to Cart',
+                color: 'green',
+            };
+            cartPrice.value = form.price;
+        },
+        onError: () =>
+            (toast.value = {
+                show: true,
+                text: form.errors.selected,
+                color: 'red',
+            }),
+    });
+}
 </script>
 
 <template>
@@ -129,7 +138,7 @@ function submit() {
             class="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8"
         >
             <div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
-              <div class="lg:col-span-5 lg:col-start-8">
+                <div class="lg:col-span-5 lg:col-start-8">
                     <div class="flex justify-between">
                         <h1 class="text-xl font-medium text-gray-900">
                             {{ product.name }}
@@ -184,13 +193,17 @@ function submit() {
                                         :value="variant.id"
                                         @click="calculate"
                                         :disabled="
-                                            disabledVariants.includes(variant.id)
+                                            disabledVariants.includes(
+                                                variant.id,
+                                            )
                                         "
                                         v-slot="{ active, checked }"
                                     >
                                         <div
                                             :class="[
-                                                !disabledVariants.includes(variant.id)
+                                                !disabledVariants.includes(
+                                                    variant.id,
+                                                )
                                                     ? 'cursor-pointer focus:outline-none'
                                                     : 'cursor-not-allowed opacity-25',
                                                 active
@@ -228,9 +241,14 @@ function submit() {
                                 </RadioGroup>
                             </fieldset>
                         </div>
-                        <Toast :text="toast.text" :color="toast.color" v-if="toast.show"></Toast>
+                        <Toast
+                            :text="toast.text"
+                            :color="toast.color"
+                            v-if="toast.show"
+                        ></Toast>
                         <button
-                            type="submit" :disabled="form.processing"
+                            type="submit"
+                            :disabled="form.processing"
                             class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                             Add to cart

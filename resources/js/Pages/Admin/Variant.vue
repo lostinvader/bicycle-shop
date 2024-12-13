@@ -8,9 +8,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 const props = defineProps({ parts: Array, variant: Object, errors: Object });
 
 let toast = ref({
-  show: false,
-  text:'Product Added to Cart',
-  color:'green'
+    show: false,
+    text: 'Product Added to Cart',
+    color: 'green',
 });
 
 const priceVariations = [];
@@ -26,17 +26,27 @@ const form = useForm({
     price: props.variant.default_price_amount,
     stock: props.variant.stock,
     disabled: props.variant.variants
-        .filter((e) => !e.pivot.affected_disabled)
+        .filter((e) => e.pivot.affected_disabled)
         .map((e) => e.pivot.affected_variant_id),
     priceIncrease: priceVariations,
 });
 
 function submit() {
-  console.log('submit');
-  form.patch(`/admin/variants/${props.variant.id}`, {
-      preserveScroll: true,
-      onSuccess: () => toast = {show:true, text:'Product Updated Succesfully', color:'green'},
-      onError: () => toast = {show:true, text:'There are errors in your form', color:'red'},
+    console.log('submit');
+    form.patch(`/admin/variants/${props.variant.id}`, {
+        preserveScroll: true,
+        onSuccess: () =>
+            (toast.value = {
+                show: true,
+                text: 'Product Updated Succesfully',
+                color: 'green',
+            }),
+        onError: () =>
+            (toast.value = {
+                show: true,
+                text: 'There are errors in your form',
+                color: 'red',
+            }),
     });
 }
 </script>
@@ -84,7 +94,12 @@ function submit() {
                                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                             />
                                         </div>
-                                        <div v-if="errors.name" class="text-red-800">{{ errors.name }}</div>
+                                        <div
+                                            v-if="errors.name"
+                                            class="text-red-800"
+                                        >
+                                            {{ errors.name }}
+                                        </div>
                                     </div>
 
                                     <div class="sm:col-span-4">
@@ -102,7 +117,12 @@ function submit() {
                                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                             />
                                         </div>
-                                        <div v-if="errors.price" class="text-red-800">{{ errors.price }}</div>
+                                        <div
+                                            v-if="errors.price"
+                                            class="text-red-800"
+                                        >
+                                            {{ errors.price }}
+                                        </div>
                                     </div>
 
                                     <div class="sm:col-span-4">
@@ -120,7 +140,12 @@ function submit() {
                                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                             />
                                         </div>
-                                        <div v-if="errors.stock" class="text-red-800">{{ errors.stock }}</div>
+                                        <div
+                                            v-if="errors.stock"
+                                            class="text-red-800"
+                                        >
+                                            {{ errors.stock }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -296,8 +321,12 @@ function submit() {
                                 </div>
                             </div>
                         </div>
-                        <Toast :text="toast.text" :color="toast.color" v-if="toast.show"></Toast>
-                      </div>
+                        <Toast
+                            :text="toast.text"
+                            :color="toast.color"
+                            v-if="toast.show"
+                        ></Toast>
+                    </div>
                     <div
                         class="flex items-center justify-end gap-x-6 px-4 py-4 sm:px-8"
                     >

@@ -3,7 +3,7 @@
 ## Overview
 This project is a simplified e-commerce platform that enables users to customize and add to cart a bike. It also features an admin area for managing customization options.
 
-###Key features:
+**Key features:**
 
 **Store front:**
 - An interactive bicycle customization tool with configurable options (e.g., frame type, wheels, colors, etc.).
@@ -17,6 +17,10 @@ This project is a simplified e-commerce platform that enables users to customize
 - Configure rules for allowed and forbidden part combinations.
 
 It was developed as part of a technical assignment.
+
+## Live Demo
+
+[https://bike-shop.gergonzalez.es/products/1](https://bike-shop.gergonzalez.es/products/1)
 
 ---
 
@@ -62,10 +66,11 @@ https://laravel.com/docs/11.x
 2. **Monolithic Structure. ** Due to time constraints, work on an SPA approach with an api was out of reach, in order to try to keep it closer, The project adopts a monolithic structure, combining Laravel for the backend and Vue.js for the frontend using Inertia.js. This approach enables the development of fully client-side rendered single-page applications while retaining the simplicity of the monolithic structure.
 
 3. **Database Design**
+
 - **Products Table:** Stores data about products (e.g., bicycles).
 - **Parts Table:** Stores product parts (e.g., frame, color, etc.). Each product can have multiple parts, but each part is associated with only one product.
 - **Variants Table:** Stores variations of parts (e.g., Frame -> Diamond, Suspension; Color -> Red, Blue). Each part can have multiple variants, but each variant belongs to only one part.
-- **Variant_Variant Table (Intermediate Table):* Acts as a intermemediate table for the Many to Many relationship between the variants and uses pivot records to store this data.
+- **Variant_Variant Table (Intermediate Table):** Acts as a intermemediate table for the Many to Many relationship between the variants and uses pivot records to store this data.
 
 4. **Database Technology**
 MySQL was selected for its familiarity and ability to meet the project’s performance and scalability requirements.
