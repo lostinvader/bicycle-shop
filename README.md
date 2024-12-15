@@ -147,7 +147,9 @@ Due to the time limitations the following features weren't implemented:
 - Implement an API.
 
 **From a functionality standpoint**
+- Establish a default product price to provide customers with a clear pricing reference or calculate the minimum configuration cost and display it as a “starting from” price to set customer expectations.
 - Improve the variants selection area in the single product page by incorporating features such as displaying variants images and providing a real-time preview of the customized bike as options are selected.
+- Use of UUID or ULID for the id, to improve security.
 - Landing page.
 - Product listing page with multiple bicycles featuring filtering and sorting.
 - Shopping cart functionality.
